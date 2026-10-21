@@ -82,7 +82,7 @@ def oLocA (x : OracleInst) (fr : ℕ) (tmp bn j0 kkb : ℤ) : List ℤ :=
 /-- Everything that the oracle forms or passes on is at most this. -/
 def oWordSum (n U s p : ℕ) : ℕ :=
   100 + 10 ^ oM s p * (7 ^ oL s p * 7 ^ oL s p) + 7 ^ (oL s p + 1) + 10 ^ (oL s p + 1)
-    + 2 ^ oL s p + 4 * (oL s p).choose (oM s p) + 4 + 4 * s * p + oD s p + 5656907 * oM s p + 50000000
+    + 2 ^ oL s p + 4 * (oL s p).choose (oM s p) + 4 + 4 * s * p + oD s p + 155816 * oM s p + 1377219
     + 3 ^ (oL s p - oM s p) + oL s p + 1 + 4 * U + 16 * p + 16 + n * oDig p + oN0 s p
     + oNb n s p + oNP n s p + oNv n s p + n + s + oProd n s + oKK s p + oBat n s p
     + (oNb n s p + 1) * (oKK s p * oN0 s p + oN0 s p + 1) + (oProd n s + oKK s p + 1) * (s + 1)
@@ -103,7 +103,7 @@ def oNeed (ps : List ℕ) : Need := oNeedAt (ps.getD 0 0) (ps.getD 1 0) (ps.getD
 theorem le_oWordSum_of (n U s p : ℕ) {z : ℕ} (h : z ≤ 100 ∨ z ≤ 10 ^ oM s p * (7 ^ oL s p * 7 ^ oL s p)
     ∨ z ≤ 7 ^ (oL s p + 1) ∨ z ≤ 10 ^ (oL s p + 1) ∨ z ≤ 2 ^ oL s p
     ∨ z ≤ 4 * (oL s p).choose (oM s p) + 4 ∨ z ≤ 4 * s * p ∨ z ≤ oD s p
-    ∨ z ≤ 5656907 * oM s p + 50000000 ∨ z ≤ 3 ^ (oL s p - oM s p) + oL s p + 1
+    ∨ z ≤ 155816 * oM s p + 1377219 ∨ z ≤ 3 ^ (oL s p - oM s p) + oL s p + 1
     ∨ z ≤ 4 * U + 16 * p + 16 ∨ z ≤ n * oDig p + oN0 s p + oNb n s p + oNP n s p + oNv n s p
     ∨ z ≤ n + s + oProd n s + oKK s p + oBat n s p
     ∨ z ≤ (oNb n s p + 1) * (oKK s p * oN0 s p + oN0 s p + 1)

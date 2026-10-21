@@ -15,8 +15,8 @@ public import Submission.ThreeSumApsp.Statements.Exponents
 
 `apsp_of_ae` generalizes `Light.Sec3.apsp_polylog_of_aeUniform`: from a solver of all-edges Exact
 Triangle in time `T`, whose growth along `u = c n^{κ+1}` is `O(n^a (log n)^{O(1)})`, APSP takes
-`O(n^a (log n)^{O(1)})` time on the word RAM.  `apsp_solvedInTime_2995560766` is the final step to the
-end statement with exponent `2.995560766`.
+`O(n^a (log n)^{O(1)})` time on the word RAM.  `apsp_solvedInTime_29955607647814` is the final step to the
+end statement with exponent `2.9955607647814`.
 -/
 
 @[expose] public section
@@ -71,19 +71,19 @@ theorem apsp_of_ae {T : ℕ → ℝ → ℝ} {a : ℝ} (ha : 2 ≤ a) (hT : Solv
     rw [Real.rpow_add_one hn0.ne', mul_comm]
   simp only [← mul_assoc, hpow]
 
-/-- **The final step**: APSP in `O(n^a (log n)^{O(1)})` with `a < 2.995560766` is APSP in
-`O(n^{2.995560766})`. -/
-theorem apsp_solvedInTime_2995560766 {a : ℝ} (h : SolvedInPolylogTime EndStatement.APSP a)
-    (ha : a < 2.995560766) : EndStatement.APSP.SolvedInTime (2.995560766 : ℚ) :=
-  (h.solvedInTime (a' := ((2.995560766 : ℚ) : ℝ)) (by push_cast; linarith)).endStatement rfl
+/-- **The final step**: APSP in `O(n^a (log n)^{O(1)})` with `a < 2.9955607647814` is APSP in
+`O(n^{2.9955607647814})`. -/
+theorem apsp_solvedInTime_29955607647814 {a : ℝ} (h : SolvedInPolylogTime EndStatement.APSP a)
+    (ha : a < 2.9955607647814) : EndStatement.APSP.SolvedInTime (2.9955607647814 : ℚ) :=
+  (h.solvedInTime (a' := ((2.9955607647814 : ℚ) : ℝ)) (by push_cast; linarith)).endStatement rfl
     (by norm_num)
 
 /-- The two steps together. -/
-theorem apsp_2995560766_of_ae {T : ℕ → ℝ → ℝ} {a : ℝ} (ha : 2 ≤ a) (ha' : a < 2.995560766)
+theorem apsp_29955607647814_of_ae {T : ℕ → ℝ → ℝ} {a : ℝ} (ha : 2 ≤ a) (ha' : a < 2.9955607647814)
     (hT : SolvedIn aeTask T) (hsq : ∀ (n : ℕ) (u : ℝ), 1 ≤ n → (n : ℝ) ^ 2 ≤ T n u)
     (hgrow : ∀ c κ : ℝ, 1 ≤ c → 0 ≤ κ →
       IsPowPolylog (fun n : ℕ => T n (c * (n : ℝ) ^ (κ + 1))) a) :
-    EndStatement.APSP.SolvedInTime (2.995560766 : ℚ) :=
-  apsp_solvedInTime_2995560766 (apsp_of_ae ha hT hsq hgrow) ha'
+    EndStatement.APSP.SolvedInTime (2.9955607647814 : ℚ) :=
+  apsp_solvedInTime_29955607647814 (apsp_of_ae ha hT hsq hgrow) ha'
 
 end Light.Filter2

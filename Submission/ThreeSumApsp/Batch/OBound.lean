@@ -16,7 +16,7 @@ public import Submission.ThreeSumApsp.Pruned.Within8p
 # An eventual bound on the time of the batched oracle
 
 `oTimeF_le`: eventually, for `U ≤ c n^κ` and `p ≤ Pmax`, the batched oracle at `s = sOf n` takes at
-most `n^{2.9955607656}` steps.
+most `n^{2.9955607647812}` steps.
 -/
 
 @[expose] public section
@@ -54,24 +54,24 @@ theorem oL_eq (s p : ℕ) : oL s p = levelsOf 20 (oM s p) := by
   unfold levelsOf oL
   rw [show (20 : ℝ) * (oM s p : ℝ) = ((20 * oM s p : ℕ) : ℝ) by push_cast; ring, Nat.ceil_natCast]
 
-theorem oT_eq (s p : ℕ) : oT s p = switchOf (5656907 / 50000000) (oM s p) := by
+theorem oT_eq (s p : ℕ) : oT s p = switchOf (155816 / 1377219) (oM s p) := by
   unfold switchOf oT
   set m := oM s p
-  set a := (5656907 * m + 50000000 - 1) / 50000000
-  have h1 := Nat.div_add_mod (5656907 * m + 50000000 - 1) 50000000
-  have h2 := Nat.mod_lt (5656907 * m + 50000000 - 1) (show 0 < 50000000 by norm_num)
+  set a := (155816 * m + 1377219 - 1) / 1377219
+  have h1 := Nat.div_add_mod (155816 * m + 1377219 - 1) 1377219
+  have h2 := Nat.mod_lt (155816 * m + 1377219 - 1) (show 0 < 1377219 by norm_num)
   refine le_antisymm ?_ (Nat.ceil_le.2 ?_)
   · rcases Nat.eq_zero_or_pos a with h0 | hpos
     · rw [h0]; exact Nat.zero_le _
-    · have : ((a - 1 : ℕ) : ℝ) < 5656907 / 50000000 * (m : ℝ) := by
-        have : 50000000 * (a - 1) < 5656907 * m := by omega
-        have : ((50000000 * (a - 1) : ℕ) : ℝ) < ((5656907 * m : ℕ) : ℝ) := by exact_mod_cast this
+    · have : ((a - 1 : ℕ) : ℝ) < 155816 / 1377219 * (m : ℝ) := by
+        have : 1377219 * (a - 1) < 155816 * m := by omega
+        have : ((1377219 * (a - 1) : ℕ) : ℝ) < ((155816 * m : ℕ) : ℝ) := by exact_mod_cast this
         push_cast at this
         linarith
       have := Nat.lt_ceil.2 this
       omega
-  · have : 5656907 * m ≤ 50000000 * a := by omega
-    have : ((5656907 * m : ℕ) : ℝ) ≤ ((50000000 * a : ℕ) : ℝ) := by exact_mod_cast this
+  · have : 155816 * m ≤ 1377219 * a := by omega
+    have : ((155816 * m : ℕ) : ℝ) ≤ ((1377219 * a : ℕ) : ℝ) := by exact_mod_cast this
     push_cast at this
     linarith
 
@@ -144,15 +144,15 @@ theorem one_add_le_exp (ν : ℝ) : 1 + ν ≤ 10 ^ 12 * Real.exp (ν / 10 ^ 12)
   nlinarith
 
 /-- A polylogarithmic factor and a constant are absorbed by `n^{10^{-10}}`. -/
-theorem absorb {ν a K : ℝ} (hν : 0 ≤ ν) (hK : 0 ≤ K) (ha : a ≤ 2.9955607654 * ν + 100) :
-    K * (1 + ν) ^ 2 * Real.exp a ≤ K * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607655 * ν) := by
+theorem absorb {ν a K : ℝ} (hν : 0 ≤ ν) (hK : 0 ≤ K) (ha : a ≤ 2.9955607647791 * ν + 100) :
+    K * (1 + ν) ^ 2 * Real.exp a ≤ K * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607647811 * ν) := by
   have h1 := one_add_le_exp ν
   have h2 : (1 + ν) ^ 2 ≤ (10 ^ 12 * Real.exp (ν / 10 ^ 12)) ^ 2 := by gcongr
   calc K * (1 + ν) ^ 2 * Real.exp a
       ≤ K * (10 ^ 12 * Real.exp (ν / 10 ^ 12)) ^ 2 * Real.exp a := by gcongr
     _ = K * 10 ^ 24 * Real.exp (ν / 10 ^ 12 + ν / 10 ^ 12 + a) := by
         rw [Real.exp_add, Real.exp_add]; ring
-    _ ≤ K * 10 ^ 24 * Real.exp (100 + 2.9955607655 * ν) :=
+    _ ≤ K * 10 ^ 24 * Real.exp (100 + 2.9955607647811 * ν) :=
         mul_le_mul_of_nonneg_left (Real.exp_le_exp.2 (by linarith)) (by positivity)
     _ = _ := by rw [Real.exp_add]; ring
 
@@ -163,10 +163,10 @@ theorem log_two_mem : 0.6931471803 < Real.log 2 ∧ Real.log 2 < 0.6931471808 :=
 structure Ctx (ν x y d : ℝ) : Prop where
   ν_ge : 20000 ≤ ν
   x_nonneg : 0 ≤ x
-  x_ge : 0.03361758 * ν ≤ Real.log 2 + x
-  x_le : x ≤ Real.log 2 + 0.03361758 * ν
+  x_ge : 136966 / 4074237 * ν ≤ Real.log 2 + x
+  x_le : x ≤ Real.log 2 + 136966 / 4074237 * ν
   y_nonneg : 0 ≤ y
-  y_le : y ≤ x + 0.00000000001 * ν
+  y_le : y ≤ x + 0.0000000000001 * ν
   d_ge : 2 * Real.log 2 + x + y ≤ d
   d_le : d ≤ 4 * Real.log 2 + x + y
 
@@ -190,18 +190,18 @@ theorem d_le' : d ≤ 3 * (1 + ν) := by
 /-- The boxes of the preprocessing. -/
 theorem boxes {BK m tl NP ct : ℝ} (_hBK0 : 0 ≤ BK) (hBK : BK ≤ 4 * Real.exp (ν - x))
     (hm0 : 0 ≤ m) (hm : m * (2 * Real.log 2) = d) (hct : 0 ≤ ct) (htl0 : 0 ≤ tl)
-    (htl : tl ≤ ct * Real.exp (-0.06602549498 * d)) (hNP0 : 0 ≤ NP)
+    (htl : tl ≤ ct * Real.exp (-0.0660254968003 * d)) (hNP0 : 0 ≤ NP)
     (hNP : NP ≤ 6 * Real.exp (ν + y / 2)) :
     BK * (20 * m) * (m + 1) * tl * NP ^ 2
-      ≤ 34560 * ct * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607655 * ν) := by
+      ≤ 34560 * ct * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607647811 * ν) := by
   have hm3 := h.m_le hm
   have hν := h.ν_nonneg
   calc BK * (20 * m) * (m + 1) * tl * NP ^ 2
       ≤ (4 * Real.exp (ν - x)) * (20 * (3 * (1 + ν))) * (4 * (1 + ν))
-          * (ct * Real.exp (-0.06602549498 * d)) * (6 * Real.exp (ν + y / 2)) ^ 2 := by
+          * (ct * Real.exp (-0.0660254968003 * d)) * (6 * Real.exp (ν + y / 2)) ^ 2 := by
         gcongr; linarith
     _ = 34560 * ct * (1 + ν) ^ 2
-          * Real.exp (ν - x + -0.06602549498 * d + (ν + y / 2) + (ν + y / 2)) := by
+          * Real.exp (ν - x + -0.0660254968003 * d + (ν + y / 2) + (ν + y / 2)) := by
         simp only [Real.exp_add, Real.exp_sub]; ring
     _ ≤ _ := by
         refine absorb hν (by positivity) ?_
@@ -212,18 +212,18 @@ theorem boxes {BK m tl NP ct : ℝ} (_hBK0 : 0 ≤ BK) (hBK : BK ≤ 4 * Real.ex
 /-- The pruned encodings of the preprocessing. -/
 theorem encodings {BK m NP N0 : ℝ} (hBK0 : 0 ≤ BK) (hBK : BK ≤ 4 * Real.exp (ν - x))
     (hm0 : 0 ≤ m) (hm : m * (2 * Real.log 2) = d) (hNP0 : 0 ≤ NP)
-    (hNP : NP ≤ 6 * Real.exp (ν + y / 2)) (hN00 : 0 ≤ N0) (hN0 : N0 ≤ Real.exp (15.057143757 * d)) :
-    m * BK * NP * N0 ≤ 72 * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607655 * ν) := by
+    (hNP : NP ≤ 6 * Real.exp (ν + y / 2)) (hN00 : 0 ≤ N0) (hN0 : N0 ≤ Real.exp (15.057143756851 * d)) :
+    m * BK * NP * N0 ≤ 72 * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607647811 * ν) := by
   have hm3 := h.m_le hm
   have hν := h.ν_nonneg
   calc m * BK * NP * N0
       ≤ (3 * (1 + ν)) * (4 * Real.exp (ν - x)) * (6 * Real.exp (ν + y / 2))
-          * Real.exp (15.057143757 * d) := by
+          * Real.exp (15.057143756851 * d) := by
         gcongr
     _ ≤ (3 * (1 + ν) ^ 2) * (4 * Real.exp (ν - x)) * (6 * Real.exp (ν + y / 2))
-          * Real.exp (15.057143757 * d) := by
+          * Real.exp (15.057143756851 * d) := by
         gcongr; nlinarith
-    _ = 72 * (1 + ν) ^ 2 * Real.exp (ν - x + (ν + y / 2) + 15.057143757 * d) := by
+    _ = 72 * (1 + ν) ^ 2 * Real.exp (ν - x + (ν + y / 2) + 15.057143756851 * d) := by
         simp only [Real.exp_add, Real.exp_sub]; ring
     _ ≤ _ := by
         refine absorb hν (by positivity) ?_
@@ -233,18 +233,18 @@ theorem encodings {BK m NP N0 : ℝ} (hBK0 : 0 ≤ BK) (hBK : BK ≤ 4 * Real.ex
 
 /-- The queries. -/
 theorem queries {BK Q : ℝ} (_hBK0 : 0 ≤ BK) (hBK : BK ≤ 4 * Real.exp (ν - x)) (hQ0 : 0 ≤ Q)
-    (hQ : Q ≤ Real.exp (0.43397449436 * d) * d) :
-    BK * Real.exp ν ^ 2 * Q ≤ 12 * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607655 * ν) := by
+    (hQ : Q ≤ Real.exp (0.4339745031995 * d) * d) :
+    BK * Real.exp ν ^ 2 * Q ≤ 12 * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607647811 * ν) := by
   have hd := h.d_le'
   have hν := h.ν_nonneg
   have hd0 : 0 ≤ d := by have := log_two_mem; have := h.d_ge; have := h.y_nonneg; linarith [h.x_nonneg]
-  have hQ' : Q ≤ Real.exp (0.43397449436 * d) * (3 * (1 + ν)) := hQ.trans (by gcongr)
+  have hQ' : Q ≤ Real.exp (0.4339745031995 * d) * (3 * (1 + ν)) := hQ.trans (by gcongr)
   calc BK * Real.exp ν ^ 2 * Q
-      ≤ (4 * Real.exp (ν - x)) * Real.exp ν ^ 2 * (Real.exp (0.43397449436 * d) * (3 * (1 + ν))) := by
+      ≤ (4 * Real.exp (ν - x)) * Real.exp ν ^ 2 * (Real.exp (0.4339745031995 * d) * (3 * (1 + ν))) := by
         gcongr
-    _ ≤ (4 * Real.exp (ν - x)) * Real.exp ν ^ 2 * (Real.exp (0.43397449436 * d) * (3 * (1 + ν) ^ 2)) := by
+    _ ≤ (4 * Real.exp (ν - x)) * Real.exp ν ^ 2 * (Real.exp (0.4339745031995 * d) * (3 * (1 + ν) ^ 2)) := by
         gcongr; nlinarith
-    _ = 12 * (1 + ν) ^ 2 * Real.exp (ν - x + ν + ν + 0.43397449436 * d) := by
+    _ = 12 * (1 + ν) ^ 2 * Real.exp (ν - x + ν + ν + 0.4339745031995 * d) := by
         simp only [Real.exp_add, Real.exp_sub]; ring
     _ ≤ _ := by
         refine absorb hν (by positivity) ?_
@@ -254,7 +254,7 @@ theorem queries {BK Q : ℝ} (_hBK0 : 0 ≤ BK) (hBK : BK ≤ 4 * Real.exp (ν -
 
 /-- Everything else is below `n³/s`, up to a constant and a factor `1 + ν`. -/
 theorem small {a : ℝ} (ha : a ≤ 3 * ν - x) {K : ℝ} (hK : 0 ≤ K) :
-    K * (1 + ν) * Real.exp a ≤ K * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607655 * ν) := by
+    K * (1 + ν) * Real.exp a ≤ K * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607647811 * ν) := by
   have hν := h.ν_nonneg
   calc K * (1 + ν) * Real.exp a ≤ K * (1 + ν) ^ 2 * Real.exp a := by
         gcongr; nlinarith
@@ -276,9 +276,9 @@ theorem cast_pow_eq_exp (b k : ℕ) (hb : 0 < b) :
     ((b ^ k : ℕ) : ℝ) = Real.exp ((k : ℝ) * Real.log b) := by
   rw [Real.exp_nat_mul, Real.exp_log (by exact_mod_cast hb)]; push_cast; rfl
 
-/-- `N₀ = 3^{19 m} ≤ D^{15.057143757}`. -/
+/-- `N₀ = 3^{19 m} ≤ D^{15.057143756851}`. -/
 theorem cast_N0_le (m : ℕ) :
-    ((3 ^ (20 * m - m) : ℕ) : ℝ) ≤ Real.exp (15.057143757 * ((m : ℝ) * Real.log 4)) := by
+    ((3 ^ (20 * m - m) : ℕ) : ℝ) ≤ Real.exp (15.057143756851 * ((m : ℝ) * Real.log 4)) := by
   rw [cast_pow_eq_exp 3 _ (by norm_num), show 20 * m - m = 19 * m by omega]
   apply Real.exp_le_exp.2
   have hb := bExp_B
@@ -298,19 +298,19 @@ theorem cast_K_le {m : ℕ} (hm : 1 ≤ m) :
   have := mul_le_mul_of_nonneg_left hk.le hm0
   linarith
 
-/-- The binomial tail: `tail/M ≤ ct D^{-0.06602549498}`. -/
+/-- The binomial tail: `tail/M ≤ ct D^{-0.0660254968003}`. -/
 theorem tail_le {m : ℕ} (hm : 3 ≤ m) :
-    tailBeta (levelsOf 20 m) m (switchOf (5656907 / 50000000) m) / (ThreeSumApsp.M (levelsOf 20 m) m : ℝ)
-      ≤ 1 / (1 - rhoC 20) * (2 / (1 - 5656907 / 50000000))
-        * Real.exp (-0.06602549498 * ((m : ℝ) * Real.log 4)) := by
+    tailBeta (levelsOf 20 m) m (switchOf (155816 / 1377219) m) / (ThreeSumApsp.M (levelsOf 20 m) m : ℝ)
+      ≤ 1 / (1 - rhoC 20) * (2 / (1 - 155816 / 1377219))
+        * Real.exp (-0.0660254968003 * ((m : ℝ) * Real.log 4)) := by
   have hm3 : (3 : ℝ) ≤ m := by exact_mod_cast hm
-  have h := tail_div_M_le (c := 20) (θ := 5656907 / 50000000) (by norm_num) (by norm_num) (by norm_num)
+  have h := tail_div_M_le (c := 20) (θ := 155816 / 1377219) (by norm_num) (by norm_num) (by norm_num)
     (m := m) (by omega) (by nlinarith)
   refine h.trans ?_
   rw [cast_D_rpow]
   have hg := GammaOf_B
   have hm0 : (0 : ℝ) ≤ m * Real.log 4 := mul_nonneg (by positivity) log_four_pos.le
-  have hc : 0 ≤ 1 / (1 - rhoC 20) * (2 / (1 - 5656907 / 50000000 : ℝ)) := by
+  have hc : 0 ≤ 1 / (1 - rhoC 20) * (2 / (1 - 155816 / 1377219 : ℝ)) := by
     unfold rhoC; norm_num
   gcongr
 
@@ -356,7 +356,7 @@ theorem cast_oTimeF_eq {A n U s p : ℕ} (hp : p ≠ 0) :
   ring
 
 /-- The constant `ct` of the binomial tail. -/
-noncomputable def ctB : ℝ := 1 / (1 - rhoC 20) * (2 / (1 - 5656907 / 50000000))
+noncomputable def ctB : ℝ := 1 / (1 - rhoC 20) * (2 / (1 - 155816 / 1377219))
 
 theorem ctB_nonneg : 0 ≤ ctB := by unfold ctB rhoC; norm_num
 
@@ -371,14 +371,14 @@ theorem oTimeF_le_of {A n U s p : ℕ} {C1 C2 Cq a0 κ' : ℝ} (hC1 : 0 ≤ C1) 
       (tPreCore cShared30 P t : ℝ) ≤ C1 * cost8p P.L P.m t P.N)
     (hq : ∀ (P : Sec2.Par) (t : ℕ), Hyp30 P t →
       (tQueryAt P.L P.m t : ℝ) ≤ C2 * costQuery P.L P.m t)
-    (hcq : ∀ m : ℕ, 1 ≤ m → costQuery (levelsOf 20 m) m (switchOf (5656907 / 50000000) m)
-      ≤ Cq * ((D m : ℝ) ^ qOf (5656907 / 50000000) * Real.log (D m)))
+    (hcq : ∀ m : ℕ, 1 ≤ m → costQuery (levelsOf 20 m) m (switchOf (155816 / 1377219) m)
+      ≤ Cq * ((D m : ℝ) ^ qOf (155816 / 1377219) * Real.log (D m)))
     (hn : 1 ≤ n) (hs : 1 ≤ s) (hsn : s ≤ n) (hp : 1 ≤ p)
-    (hν : 20000 ≤ Real.log n) (hx1 : 0.03361758 * Real.log n ≤ Real.log 2 + Real.log s)
-    (hx2 : Real.log s ≤ Real.log 2 + 0.03361758 * Real.log n)
-    (hy : Real.log p ≤ Real.log s + 0.00000000001 * Real.log n)
+    (hν : 20000 ≤ Real.log n) (hx1 : 136966 / 4074237 * Real.log n ≤ Real.log 2 + Real.log s)
+    (hx2 : Real.log s ≤ Real.log 2 + 136966 / 4074237 * Real.log n)
+    (hy : Real.log p ≤ Real.log s + 0.0000000000001 * Real.log n)
     (hG : (Nat.log 2 (U + 1) : ℝ) ≤ a0 + κ' * Real.log n) :
-    (oTimeF A n U s p : ℝ) ≤ Kt A C1 C2 Cq a0 κ' * Real.exp (2.9955607655 * Real.log n) := by
+    (oTimeF A n U s p : ℝ) ≤ Kt A C1 C2 Cq a0 κ' * Real.exp (2.9955607647811 * Real.log n) := by
   have hp0 : p ≠ 0 := by omega
   set m := oM s p with hm_def
   have hm1 : 1 ≤ m := one_le_oM hs hp
@@ -483,12 +483,12 @@ theorem oTimeF_le_of {A n U s p : ℕ} {C1 C2 Cq a0 κ' : ℝ} (hC1 : 0 ≤ C1) 
     linarith only [this, hT1]
   -- the rows
   set N0 := oN0 s p with hN0_def
-  have hN0 : (N0 : ℝ) ≤ Real.exp (15.057143757 * d) := cast_N0_le m
+  have hN0 : (N0 : ℝ) ≤ Real.exp (15.057143756851 * d) := cast_N0_le m
   have hN0nk : N0 ≤ n * k := by
     have : (N0 : ℝ) ≤ ((n * k : ℕ) : ℝ) := by
       push_cast
       refine hN0.trans ?_
-      calc Real.exp (15.057143757 * d) ≤ Real.exp (ν + y / 2) := by
+      calc Real.exp (15.057143756851 * d) ≤ Real.exp (ν + y / 2) := by
             apply Real.exp_le_exp.2
             linarith only [ctx.x_le, ctx.y_le, ctx.ν_ge, hD2, hl2.1, hl2.2]
         _ = Real.exp ν * Real.exp (y / 2) := Real.exp_add _ _
@@ -536,17 +536,17 @@ theorem oTimeF_le_of {A n U s p : ℕ} {C1 C2 Cq a0 κ' : ℝ} (hC1 : 0 ≤ C1) 
         _ = K0 * (2 * N0) := by ring
         _ ≤ K0 * NP := by gcongr
   -- the preprocessing
-  obtain ⟨E, hE_def⟩ : ∃ E, E = Real.exp 100 * Real.exp (2.9955607655 * ν) := ⟨_, rfl⟩
+  obtain ⟨E, hE_def⟩ : ∃ E, E = Real.exp 100 * Real.exp (2.9955607647811 * ν) := ⟨_, rfl⟩
   set BK : ℝ := ((B * KK : ℕ) : ℝ) with hBK_def
   have hBK0 : 0 ≤ BK := Nat.cast_nonneg _
   have hm0 : (0 : ℝ) ≤ m := Nat.cast_nonneg _
   have hNP0 : (0 : ℝ) ≤ NP := Nat.cast_nonneg _
   have hN00 : (0 : ℝ) ≤ N0 := Nat.cast_nonneg _
-  obtain ⟨tl, htl_def⟩ : ∃ tl, tl = tailBeta (levelsOf 20 m) m (switchOf (5656907 / 50000000) m)
+  obtain ⟨tl, htl_def⟩ : ∃ tl, tl = tailBeta (levelsOf 20 m) m (switchOf (155816 / 1377219) m)
     / (ThreeSumApsp.M (levelsOf 20 m) m : ℝ) := ⟨_, rfl⟩
   have htl0 : 0 ≤ tl := htl_def ▸
     div_nonneg (Finset.sum_nonneg fun _ _ => Nat.cast_nonneg _) (Nat.cast_nonneg _)
-  have htl : tl ≤ ctB * Real.exp (-0.06602549498 * d) := htl_def ▸ tail_le hm3
+  have htl : tl ≤ ctB * Real.exp (-0.0660254968003 * d) := htl_def ▸ tail_le hm3
   obtain ⟨R, hR_def⟩ : ∃ R, R = (retained (levelsOf 20 m) m : ℝ)
     / Real.sqrt (ThreeSumApsp.M (levelsOf 20 m) m : ℝ) := ⟨_, rfl⟩
   have hR0 : 0 ≤ R := by rw [hR_def]; positivity
@@ -594,8 +594,8 @@ theorem oTimeF_le_of {A n U s p : ℕ} {C1 C2 Cq a0 κ' : ℝ} (hC1 : 0 ≤ C1) 
             + (20 * m) * ((K0 : ℝ) * NP) * R)) := by gcongr
       _ = C1 * ((B : ℝ) * ((20 * m) * (m + 1) * tl * ((K0 : ℝ) * NP) ^ 2)
             + (B : ℝ) * ((20 * m) * ((K0 : ℝ) * NP) * R)) := by ring
-      _ ≤ C1 * (34560 * ctB * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607655 * ν)
-            + 76 * (72 * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607655 * ν))) := by
+      _ ≤ C1 * (34560 * ctB * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607647811 * ν)
+            + 76 * (72 * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607647811 * ν))) := by
           rw [hfirst]
           refine mul_le_mul_of_nonneg_left (add_le_add hbox (hsecond.trans ?_)) hC1
           linarith only [henc]
@@ -610,15 +610,15 @@ theorem oTimeF_le_of {A n U s p : ℕ} {C1 C2 Cq a0 κ' : ℝ} (hC1 : 0 ≤ C1) 
     rw [cast_D_rpow, log_cast_D, ← hd_def] at h2
     have hq0 := qOf_B
     have hd0 : 0 ≤ d := by positivity
-    have h3 : Real.exp (qOf (5656907 / 50000000) * d) * d ≤ Real.exp (0.43397449436 * d) * d := by
+    have h3 : Real.exp (qOf (155816 / 1377219) * d) * d ≤ Real.exp (0.4339745031995 * d) * d := by
       gcongr
     have hQ := ctx.queries hBK0 hBK (by positivity) le_rfl
     calc BK * (n : ℝ) ^ 2 * (tQueryAt (oL s p) m (oT s p) : ℝ)
-        ≤ BK * (n : ℝ) ^ 2 * (C2 * (Cq * (Real.exp (0.43397449436 * d) * d))) := by
+        ≤ BK * (n : ℝ) ^ 2 * (C2 * (Cq * (Real.exp (0.4339745031995 * d) * d))) := by
           gcongr
           exact h1.trans (by gcongr; exact h2.trans (by gcongr))
-      _ = C2 * Cq * (BK * Real.exp ν ^ 2 * (Real.exp (0.43397449436 * d) * d)) := by rw [hne]; ring
-      _ ≤ C2 * Cq * (12 * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607655 * ν)) := by gcongr
+      _ = C2 * Cq * (BK * Real.exp ν ^ 2 * (Real.exp (0.4339745031995 * d) * d)) := by rw [hne]; ring
+      _ ≤ C2 * Cq * (12 * 10 ^ 24 * Real.exp 100 * Real.exp (2.9955607647811 * ν)) := by gcongr
       _ = _ := by rw [hE_def]; ring
   -- the bookkeeping
   obtain ⟨W, hW_def⟩ : ∃ W, W = (1 + ν) * Real.exp (3 * ν - x) := ⟨_, rfl⟩
@@ -723,7 +723,7 @@ theorem oTimeF_le_of {A n U s p : ℕ} {C1 C2 Cq a0 κ' : ℝ} (hC1 : 0 ≤ C1) 
   have hq' : ((oBat n s p * oKK s p : ℕ) : ℝ) * (n : ℝ) ^ 2
       * (tQueryAt (oL s p) (oM s p) (oT s p) : ℝ) ≤ C2 * Cq * (12 * 10 ^ 24 * E) := hqB
   rw [cast_oTimeF_eq hp0]
-  have hK : Kt A C1 C2 Cq a0 κ' * Real.exp (2.9955607655 * ν)
+  have hK : Kt A C1 C2 Cq a0 κ' * Real.exp (2.9955607647811 * ν)
       = A * (a0 + κ' + 65) * 10 ^ 24 * E + C1 * ((34560 * ctB + 76 * 72) * 10 ^ 24 * E)
         + C2 * Cq * (12 * 10 ^ 24 * E) := by
     rw [hE_def, Kt]; ring
@@ -782,13 +782,13 @@ theorem log_le_of_le {c κ : ℝ} {n U : ℕ} (hn : 1 ≤ n) (hU : (U : ℝ) ≤
     (le_div_iff₀ hl).2 (by linarith)).trans_eq (by ring)
 
 /-- **The batched oracle**: eventually, for `U ≤ c n^κ` and `p ≤ Pmax`, the oracle at `s = sOf n`
-takes at most `n^{2.9955607656}` steps. -/
+takes at most `n^{2.9955607647812}` steps. -/
 theorem oTimeF_le (A : ℕ) (c κ : ℝ) : ∀ᶠ n : ℕ in Filter.atTop, ∀ U : ℕ,
     (U : ℝ) ≤ c * (n : ℝ) ^ κ → ∀ p : ℕ, p ≤ Light.Filter2.PmaxOf n →
-      (oTimeF A n U (Light.Filter2.sOf n) p : ℝ) ≤ (n : ℝ) ^ (2.9955607656 : ℝ) := by
+      (oTimeF A n U (Light.Filter2.sOf n) p : ℝ) ≤ (n : ℝ) ^ (2.9955607647812 : ℝ) := by
   obtain ⟨C1, hC1, hpre⟩ := exists_tPreCore_le_p cShared30
   obtain ⟨C2, hC2, hq⟩ := exists_tQueryAt_le
-  obtain ⟨Cq, hCq, hcq⟩ := Corollary31.query_cost (c := 20) (θ := 5656907 / 50000000) (by norm_num)
+  obtain ⟨Cq, hCq, hcq⟩ := Corollary31.query_cost (c := 20) (θ := 155816 / 1377219) (by norm_num)
     (by norm_num) (by norm_num)
   have hl : 0 < Real.log 2 := Real.log_pos (by norm_num)
   set a0 := Real.log (2 * max c 1) / Real.log 2 with ha0_def
@@ -796,9 +796,9 @@ theorem oTimeF_le (A : ℕ) (c κ : ℝ) : ∀ᶠ n : ℕ in Filter.atTop, ∀ U
   have ha0 : 0 ≤ a0 :=
     div_nonneg (Real.log_nonneg (by linarith [le_max_right c 1])) hl.le
   have hκ' : 0 ≤ κ' := div_nonneg (le_max_right _ _) hl.le
-  filter_upwards [Light.Filter2.PmaxOf_le (η := 0.00000000001) (by norm_num),
+  filter_upwards [Light.Filter2.PmaxOf_le (η := 0.0000000000001) (by norm_num),
     eventually_ge_atTop ⌈Real.exp 20000⌉₊, eventually_ge_atTop 1,
-    eventually_const_mul_rpow_le (Kt A C1 C2 Cq a0 κ') (e := 2.9955607655) (t := 2.9955607656)
+    eventually_const_mul_rpow_le (Kt A C1 C2 Cq a0 κ') (e := 2.9955607647811) (t := 2.9955607647812)
       (by norm_num)] with n hPm hnE hn hev U hU p hpP
   have hn0 : (0 : ℝ) < n := by exact_mod_cast hn
   rcases Nat.eq_zero_or_pos p with rfl | hp
@@ -812,31 +812,31 @@ theorem oTimeF_le (A : ℕ) (c κ : ℝ) : ∀ᶠ n : ℕ in Filter.atTop, ∀ U
     have : Real.exp 20000 ≤ (n : ℝ) := (Nat.le_ceil _).trans (by exact_mod_cast hnE)
     calc (20000 : ℝ) = Real.log (Real.exp 20000) := (Real.log_exp _).symm
       _ ≤ Real.log n := Real.log_le_log (Real.exp_pos _) this
-  have hx1 : 0.03361758 * Real.log n ≤ Real.log 2 + Real.log s := by
+  have hx1 : 136966 / 4074237 * Real.log n ≤ Real.log 2 + Real.log s := by
     have h1 := Light.Filter2.rpow_le_two_mul_sOf n
     rw [← hs_def] at h1
-    calc 0.03361758 * Real.log n = Real.log ((n : ℝ) ^ (0.03361758 : ℝ)) := by
+    calc 136966 / 4074237 * Real.log n = Real.log ((n : ℝ) ^ (136966 / 4074237 : ℝ)) := by
           rw [Real.log_rpow hn0]
       _ ≤ Real.log (2 * s) := Real.log_le_log (Real.rpow_pos_of_pos hn0 _) h1
       _ = _ := Real.log_mul (by norm_num) hs0.ne'
-  have hx2 : Real.log s ≤ Real.log 2 + 0.03361758 * Real.log n := by
+  have hx2 : Real.log s ≤ Real.log 2 + 136966 / 4074237 * Real.log n := by
     have h1 := Light.Filter2.sOf_le_two_mul_rpow hn
     rw [← hs_def] at h1
-    have hpos := Real.rpow_pos_of_pos hn0 (0.03361758 : ℝ)
-    calc Real.log s ≤ Real.log (2 * (n : ℝ) ^ (0.03361758 : ℝ)) := Real.log_le_log hs0 h1
+    have hpos := Real.rpow_pos_of_pos hn0 (136966 / 4074237 : ℝ)
+    calc Real.log s ≤ Real.log (2 * (n : ℝ) ^ (136966 / 4074237 : ℝ)) := Real.log_le_log hs0 h1
       _ = _ := by rw [Real.log_mul (by norm_num) hpos.ne', Real.log_rpow hn0]
-  have hy : Real.log p ≤ Real.log s + 0.00000000001 * Real.log n := by
+  have hy : Real.log p ≤ Real.log s + 0.0000000000001 * Real.log n := by
     have hp0 : (0 : ℝ) < p := by exact_mod_cast hp
-    have h1 : (p : ℝ) ≤ s * (n : ℝ) ^ (0.00000000001 : ℝ) :=
+    have h1 : (p : ℝ) ≤ s * (n : ℝ) ^ (0.0000000000001 : ℝ) :=
       le_trans (by exact_mod_cast hpP) hPm
-    have hpos := Real.rpow_pos_of_pos hn0 (0.00000000001 : ℝ)
-    calc Real.log p ≤ Real.log (s * (n : ℝ) ^ (0.00000000001 : ℝ)) := Real.log_le_log hp0 h1
+    have hpos := Real.rpow_pos_of_pos hn0 (0.0000000000001 : ℝ)
+    calc Real.log p ≤ Real.log (s * (n : ℝ) ^ (0.0000000000001 : ℝ)) := Real.log_le_log hp0 h1
       _ = _ := by rw [Real.log_mul hs0.ne' hpos.ne', Real.log_rpow hn0]
   have hG := log_le_of_le hn hU
   rw [← ha0_def, ← hκ'_def] at hG
   have hmain := oTimeF_le_of (A := A) hC1 hC2 hCq ha0 hκ' hpre hq
     (fun m hm => hcq m hm) hn hs (Light.Filter2.sOf_le_n hn) hp hν hx1 hx2 hy hG
-  have hrp : Real.exp (2.9955607655 * Real.log n) = (n : ℝ) ^ (2.9955607655 : ℝ) := by
+  have hrp : Real.exp (2.9955607647811 * Real.log n) = (n : ℝ) ^ (2.9955607647811 : ℝ) := by
     rw [Real.rpow_def_of_pos hn0, mul_comm]
   rw [hrp] at hmain
   exact hmain.trans hev

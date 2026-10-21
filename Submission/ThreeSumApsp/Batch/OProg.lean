@@ -16,7 +16,7 @@ public import Submission.ThreeSumApsp.Programs.Sec4.ChoosingParameters.Program
 # The batched counting oracle: the program text
 
 The program `oProg` is `base58B` (Theorem 30 with the batched band arrays, numbers 0 to 57), the
-procedures 58 to 73 of Section 4.4 for the rational parameters `c = 20`, `θ = 5656907/50000000`
+procedures 58 to 73 of Section 4.4 for the rational parameters `c = 20`, `θ = 155816/1377219`
 (`procs31 G20`: copy, fill, log4, …, and `⌈θ m⌉` at 73), and the procedures of the oracle from 74 on:
 
 * 74 emod, 75 ceilDiv, 76 powNat(b, e) = b^e;
@@ -318,12 +318,12 @@ def oracleBody : Stmt :=
 
 /-! ## The program -/
 
-/-- The rational parameters `c = 20`, `θ = 5656907/50000000`. -/
+/-- The rational parameters `c = 20`, `θ = 155816/1377219`. -/
 def G20 : RatParams where
   a := 20
   b := 1
-  p := 5656907
-  q := 50000000
+  p := 155816
+  q := 1377219
   m₀ := 1
   hb := by norm_num
   hq := by norm_num

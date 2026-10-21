@@ -50,8 +50,8 @@ def dOf (n : ℕ) : ℕ := bOf n / 2
 /-- The number of rounds, `⌊3k/d⌋ + 1`, so that `d · rounds > 3k`. -/
 def roundsOf (n : ℕ) : ℕ := 3 * kOf n / dOf n + 1
 
-/-- The block size `s = 2^{⌊σ k⌋}`, `σ = 0.03361758`. -/
-def sOf (n : ℕ) : ℕ := 2 ^ (3361758 * kOf n / 10 ^ 8)
+/-- The block size `s = 2^{⌊σ k⌋}`, `σ = 136966 / 4074237`. -/
+def sOf (n : ℕ) : ℕ := 2 ^ (136966 * kOf n / 4074237)
 
 /-- The number of blocks, `⌈n/s⌉`. -/
 def mOf (n : ℕ) : ℕ := (n + sOf n - 1) / sOf n

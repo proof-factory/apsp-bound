@@ -30,7 +30,7 @@ def tBinom30 (L : ℕ) : ℕ := 30 * (L + 1) ^ 2
 
 /-- The time of `oParams`. -/
 def tOParams (n s p : ℕ) : ℕ :=
-  tLog4 (oM s p) + tCeilMul 5656907 (oM s p) + tPowNat (oL s p - oM s p)
+  tLog4 (oM s p) + tCeilMul 155816 (oM s p) + tPowNat (oL s p - oM s p)
     + tBinom30 (oL s p) + 18 * (oK0 s p + 1) + 18 * (Nat.sqrt (p - 1) + 1)
     + Sec3.tCeilDiv (n * oDig p) (oN0 s p) + Sec3.tCeilDiv n s
     + Sec3.tCeilDiv (oProd n s) (oKK s p) + 300
@@ -41,7 +41,7 @@ theorem oParams_ends (R : Program) {lim : Limits} {d : ℕ} {x : OracleInst} {μ
       ⟨frame ([(x.n : ℤ), x.U, x.ab, x.bc, x.ac, x.s, x.p, x.cnt] ++ [(fr : ℤ)]), μ⟩
       (tOParams x.n x.s x.p) fun σ' =>
         σ'.loc = frame (oLocP x fr) ∧ SameOutside μ σ'.mem fr (oL x.s x.p + 3) := by
-  have hWS : 100 + 4 * x.s * x.p + oD x.s x.p + 5656907 * oM x.s x.p + 50000000 + oN0 x.s x.p
+  have hWS : 100 + 4 * x.s * x.p + oD x.s x.p + 155816 * oM x.s x.p + 1377219 + oN0 x.s x.p
       + oL x.s x.p + 1 + 4 * (oL x.s x.p).choose (oM x.s x.p) + 4 + 16 * x.p + 16
       + x.n * oDig x.p + oNb x.n x.s x.p + oNP x.n x.s x.p + oNv x.n x.s x.p + x.n + x.s
       + oProd x.n x.s + oKK x.s x.p + oBat x.n x.s x.p ≤ oWordSum x.n x.U x.s x.p := by
@@ -85,8 +85,8 @@ theorem oParams_ends (R : Program) {lim : Limits} {d : ℕ} {x : OracleInst} {μ
     rw [oProg, List.append_assoc, List.append_assoc]
     exact at_base58B h hi _
   have hsw : ∀ μ : ℕ → ℤ, Meets lim (oProg ++ R) Proc.switch31 (d + 1) [((oM x.s x.p : ℕ) : ℤ)] μ
-      (tCeilMul 5656907 (oM x.s x.p)) fun r μ' => r = (oT x.s x.p : ℕ) ∧ μ' = μ := fun μ =>
-    ceilMul_meets (a := 5656907) (b := 50000000) (by norm_num) (oProg_at31 Proc.switch31 (R := R))
+      (tCeilMul 155816 (oM x.s x.p)) fun r μ' => r = (oT x.s x.p : ℕ) ∧ μ' = μ := fun μ =>
+    ceilMul_meets (a := 155816) (b := 1377219) (by norm_num) (oProg_at31 Proc.switch31 (R := R))
       (oM x.s x.p) μ (hW _ (by omega)) (d + 1) (by omega)
   have hpow : ∀ μ : ℕ → ℤ, Meets lim (oProg ++ R) pPowNat (d + 1)
       [((3 : ℕ) : ℤ), ((oL x.s x.p - oM x.s x.p : ℕ) : ℤ)] μ (tPowNat (oL x.s x.p - oM x.s x.p))

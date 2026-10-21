@@ -18,7 +18,7 @@ public import Mathlib.NumberTheory.Bertrand
 With `k = Nat.size n`, `ℓ = ⌊√k⌋ + 1`, `m = ⌊√ℓ⌋` (so `b = ℓ (m + 1)`), every parameter is a power
 of two whose exponent is a polynomial in `m`, `ℓ`, `k`, and `m → ∞` with `n`.
 
-* `rpow_le_two_mul_sOf`, `sOf_le_two_mul_rpow`: `n^σ / 2 ≤ s ≤ 2 n^σ`, `σ = 0.03361758`.
+* `rpow_le_two_mul_sOf`, `sOf_le_two_mul_rpow`: `n^σ / 2 ≤ s ≤ 2 n^σ`, `σ = 136966 / 4074237`.
 * `RR_le_rpow`, `QOf_le_rpow`, `calls_le_rpow`, `PmaxOf_le`: `R, Q, rounds · (r (Q + 1) + 2)` are
   `n^{o(1)}`, and `Pmax ≤ s n^{o(1)}`.
 * `guard_eventually`: eventually `Guard n U` for all `U ≤ c n^κ`.
@@ -36,13 +36,13 @@ namespace Light.Filter2
 def mmOf (n : ℕ) : ℕ := Nat.sqrt (ellOf n)
 
 /-- The exponent of `s`: `s = 2^{jOf n}`. -/
-def jOf (n : ℕ) : ℕ := 3361758 * kOf n / 10 ^ 8
+def jOf (n : ℕ) : ℕ := 136966 * kOf n / 4074237
 
 theorem sOf_eq (n : ℕ) : sOf n = 2 ^ jOf n := rfl
 
 theorem cKOf_eq (n : ℕ) : cKOf n = jOf n + 1 := Nat.size_pow
 
-theorem jOf_mul_le (n : ℕ) : 10 ^ 8 * jOf n ≤ 3361758 * kOf n := by
+theorem jOf_mul_le (n : ℕ) : 4074237 * jOf n ≤ 136966 * kOf n := by
   unfold jOf; rw [mul_comm]; exact Nat.div_mul_le_self _ _
 
 theorem jOf_le (n : ℕ) : jOf n ≤ kOf n := by
@@ -250,11 +250,11 @@ theorem PmaxOf_le {η : ℝ} (hη : 0 < η) : ∀ᶠ n : ℕ in atTop,
 
 /-- `s ≤ 2 n^σ`. -/
 theorem sOf_le_two_mul_rpow {n : ℕ} (hn : 1 ≤ n) :
-    (sOf n : ℝ) ≤ 2 * (n : ℝ) ^ (0.03361758 : ℝ) := by
-  set σ : ℝ := 0.03361758
+    (sOf n : ℝ) ≤ 2 * (n : ℝ) ^ (136966 / 4074237 : ℝ) := by
+  set σ : ℝ := 136966 / 4074237
   have hk := kOf_pos hn
   have hj : (jOf n : ℝ) ≤ σ * ((kOf n - 1 : ℕ) : ℝ) + σ := by
-    have : ((10 ^ 8 * jOf n : ℕ) : ℝ) ≤ ((3361758 * kOf n : ℕ) : ℝ) := by exact_mod_cast jOf_mul_le n
+    have : ((4074237 * jOf n : ℕ) : ℝ) ≤ ((136966 * kOf n : ℕ) : ℝ) := by exact_mod_cast jOf_mul_le n
     push_cast [Nat.cast_sub hk] at this ⊢
     simp only [σ]; linarith
   have h1 : (2 : ℝ) ^ (σ * ((kOf n - 1 : ℕ) : ℝ)) ≤ (n : ℝ) ^ σ := by
@@ -273,11 +273,11 @@ theorem sOf_le_two_mul_rpow {n : ℕ} (hn : 1 ≤ n) :
     _ = _ := mul_comm _ _
 
 /-- `n^σ ≤ 2 s`. -/
-theorem rpow_le_two_mul_sOf (n : ℕ) : (n : ℝ) ^ (0.03361758 : ℝ) ≤ 2 * (sOf n : ℝ) := by
-  set σ : ℝ := 0.03361758
+theorem rpow_le_two_mul_sOf (n : ℕ) : (n : ℝ) ^ (136966 / 4074237 : ℝ) ≤ 2 * (sOf n : ℝ) := by
+  set σ : ℝ := 136966 / 4074237
   have hj : σ * (kOf n : ℝ) ≤ (jOf n : ℝ) + 1 := by
-    have h := Nat.lt_mul_div_succ (3361758 * kOf n) (show 0 < 10 ^ 8 by norm_num)
-    have : ((3361758 * kOf n : ℕ) : ℝ) ≤ ((10 ^ 8 * (jOf n + 1) : ℕ) : ℝ) := by
+    have h := Nat.lt_mul_div_succ (136966 * kOf n) (show 0 < 4074237 by norm_num)
+    have : ((136966 * kOf n : ℕ) : ℝ) ≤ ((4074237 * (jOf n + 1) : ℕ) : ℝ) := by
       exact_mod_cast h.le
     push_cast at this
     simp only [σ]; linarith

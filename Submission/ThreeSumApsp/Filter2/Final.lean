@@ -12,13 +12,13 @@ public import Submission.ThreeSumApsp.Filter2.Asymp
 public import Submission.ThreeSumApsp.Filter2.Chain
 
 /-!
-# APSP in time `O(n^{2.995560766})` from an abstract counting oracle
+# APSP in time `O(n^{2.9955607647814})` from an abstract counting oracle
 
-The filtering host with block size `s = 2^{⌊σ k⌋}`, `σ = 0.03361758`, over any solver of the
-counting oracle task whose time is at most `n^{2.9955607656}` along `U ≤ c n^κ`, `p ≤ Pmax`, is a
-solver of all-edges Exact Triangle in time `O(n^{2.9955607657})` (`filterTime_bound`): the
-`n^{o(1)}` oracle calls take `n^{2.9955607656}` each, everything else is `O(n^{3 - σ + o(1)})`, and
-the final scans vanish under the guard.  `apsp_2995560766_of_ae` concludes.
+The filtering host with block size `s = 2^{⌊σ k⌋}`, `σ = 136966 / 4074237`, over any solver of the
+counting oracle task whose time is at most `n^{2.9955607647812}` along `U ≤ c n^κ`, `p ≤ Pmax`, is a
+solver of all-edges Exact Triangle in time `O(n^{2.9955607647813})` (`filterTime_bound`): the
+`n^{o(1)}` oracle calls take `n^{2.9955607647812}` each, everything else is `O(n^{3 - σ + o(1)})`, and
+the final scans vanish under the guard.  `apsp_29955607647814_of_ae` concludes.
 -/
 
 @[expose] public section
@@ -32,13 +32,13 @@ open ThreeSumApsp.Spec Light.Sec3
 theorem sq_succ_le {x : ℝ} (hx : 1 ≤ x) : (x + 1) ^ 2 ≤ 4 * x ^ 2 := by nlinarith
 
 set_option maxHeartbeats 2000000 in
-/-- **The time of the filtering host over a counting oracle of time `n^{2.9955607656}`**: for every `c, κ`, it is
-eventually at most `K n^{2.9955607657}` along `U ≤ c n^κ`. -/
+/-- **The time of the filtering host over a counting oracle of time `n^{2.9955607647812}`**: for every `c, κ`, it is
+eventually at most `K n^{2.9955607647813}` along `U ≤ c n^κ`. -/
 theorem filterTime_bound {To : List ℕ → ℕ}
     (hT : ∀ c κ : ℝ, ∀ᶠ n : ℕ in atTop, ∀ U : ℕ, (U : ℝ) ≤ c * (n : ℝ) ^ κ →
-      ∀ p : ℕ, p ≤ PmaxOf n → (To [n, U, sOf n, p] : ℝ) ≤ (n : ℝ) ^ (2.9955607656 : ℝ))
+      ∀ p : ℕ, p ≤ PmaxOf n → (To [n, U, sOf n, p] : ℝ) ≤ (n : ℝ) ^ (2.9955607647812 : ℝ))
     (c κ : ℝ) : ∃ K : ℝ, ∀ᶠ n : ℕ in atTop, ∀ U : ℕ, (U : ℝ) ≤ c * (n : ℝ) ^ κ →
-      (filterTime To n U : ℝ) ≤ K * (n : ℝ) ^ (2.9955607657 : ℝ) := by
+      (filterTime To n U : ℝ) ≤ K * (n : ℝ) ^ (2.9955607647813 : ℝ) := by
   set c' := max c 1 with hc'
   set κ' := max κ 0 with hκ'
   have hc'1 : 1 ≤ c' := le_max_right _ _
@@ -49,9 +49,9 @@ theorem filterTime_bound {To : List ℕ → ℕ}
   have hK10 : 0 ≤ K1 := div_nonneg (Real.log_nonneg (by linarith)) hl2.le
   have hK20 : 0 ≤ K2 := div_nonneg hκ'0 hl2.le
   refine ⟨1 + 96000 + 52 + 8000 + 28 * K1 + 28 * K2, ?_⟩
-  set η : ℝ := 0.0000000001 with hη
-  set σ : ℝ := 0.03361758 with hσ
-  set a : ℝ := 2.9955607657 with ha
+  set η : ℝ := 0.0000000000001 with hη
+  set σ : ℝ := 136966 / 4074237 with hσ
+  set a : ℝ := 2.9955607647813 with ha
   filter_upwards [hT c κ, calls_le_rpow (η := η) (by norm_num [hη]),
     QOf_le_rpow (η := η) (by norm_num [hη]), RR_le_rpow (η := η) (by norm_num [hη]),
     guard_eventually c κ, eventually_ge_atTop 1] with n hor hcalls hQ hRR hG hn U hU
@@ -65,7 +65,7 @@ theorem filterTime_bound {To : List ℕ → ℕ}
     rw [← Real.rpow_natCast]; norm_num
   have hηpos : (1 : ℝ) ≤ (n : ℝ) ^ η := Real.one_le_rpow hN1 (by norm_num [hη])
   -- one oracle call
-  have hsup : (supTo To n U : ℝ) ≤ (n : ℝ) ^ (2.9955607656 : ℝ) := by
+  have hsup : (supTo To n U : ℝ) ≤ (n : ℝ) ^ (2.9955607647812 : ℝ) := by
     obtain ⟨p, hp, heq⟩ := Finset.exists_mem_eq_sup (Finset.range (PmaxOf n + 1))
       ⟨0, Finset.mem_range.2 (Nat.succ_pos _)⟩ (fun p => To [n, U, sOf n, p])
     have hpP : p ≤ PmaxOf n := Nat.lt_succ_iff.1 (Finset.mem_range.1 hp)
@@ -179,7 +179,7 @@ theorem filterTime_bound {To : List ℕ → ℕ}
     push_cast at hc2
     have := mul_le_mul hc2 hsup (Nat.cast_nonneg _) (by positivity)
     refine this.trans ?_
-    rw [hadd]; exact hle (η + 2.9955607656) (by norm_num [hη, ha])
+    rw [hadd]; exact hle (η + 2.9955607647812) (by norm_num [hη, ha])
   have h2 : ((roundsOf n : ℝ) * ((rOf n : ℝ) + 1) + 1) * (stepWork n : ℝ) ≤
       96000 * (n : ℝ) ^ a := by
     have := hrounds; push_cast at this
@@ -195,20 +195,20 @@ theorem filterTime_bound {To : List ℕ → ℕ}
   have h7 : K1 + K2 * n ≤ (K1 + K2) * (n : ℝ) ^ a := by nlinarith
   nlinarith
 
-/-- **APSP is solved in time `O(n^{2.995560766})`**, given a counting oracle that runs in time
-`n^{2.9955607656}` along `U ≤ c n^κ`, `p ≤ Pmax`. -/
-theorem apsp_2995560766_of_oracle {P : Program} {pO : ℕ} {To : List ℕ → ℕ} {needo : List ℕ → Need}
+/-- **APSP is solved in time `O(n^{2.9955607647814})`**, given a counting oracle that runs in time
+`n^{2.9955607647812}` along `U ≤ c n^κ`, `p ≤ Pmax`. -/
+theorem apsp_29955607647814_of_oracle {P : Program} {pO : ℕ} {To : List ℕ → ℕ} {needo : List ℕ → Need}
     (hsol : SolvesN oracleTask P pO To needo) (hpoly : PolyNeedN needo)
     (hT : ∀ c κ : ℝ, ∀ᶠ n : ℕ in atTop, ∀ U : ℕ, (U : ℝ) ≤ c * (n : ℝ) ^ κ →
-      ∀ p : ℕ, p ≤ PmaxOf n → (To [n, U, sOf n, p] : ℝ) ≤ (n : ℝ) ^ (2.9955607656 : ℝ)) :
-    EndStatement.APSP.SolvedInTime (2.995560766 : ℚ) := by
+      ∀ p : ℕ, p ≤ PmaxOf n → (To [n, U, sOf n, p] : ℝ) ≤ (n : ℝ) ^ (2.9955607647812 : ℝ)) :
+    EndStatement.APSP.SolvedInTime (2.9955607647814 : ℚ) := by
   obtain ⟨R, p', hae⟩ := filter_host.1 _ _ _ _ hsol
   have hS := hae.solvedIn (filter_host.2 _ hpoly)
   have hnn : ∀ n u, 0 ≤ timeUpTo (filterTime To) n u := fun n u => by
     unfold timeUpTo; exact Nat.cast_nonneg _
-  refine apsp_2995560766_of_ae
+  refine apsp_29955607647814_of_ae
     (T := fun n u => timeUpTo (filterTime To) n u + (n : ℝ) ^ 2)
-    (a := 2.9955607657) (by norm_num) (by norm_num)
+    (a := 2.9955607647813) (by norm_num) (by norm_num)
     (hS.mono fun n u _ _ => by have := hnn n u; nlinarith)
     (fun n u _ => by have := hnn n u; linarith) (fun c κ hc hκ => ?_)
   obtain ⟨K, hK⟩ := filterTime_bound hT c (κ + 1)
@@ -217,10 +217,10 @@ theorem apsp_2995560766_of_oracle {P : Program} {pO : ℕ} {To : List ℕ → �
   have hN1 : (1 : ℝ) ≤ n := by exact_mod_cast hn
   have hu : 0 ≤ c * (n : ℝ) ^ (κ + 1) := by positivity
   have h1 : timeUpTo (filterTime To) n (c * (n : ℝ) ^ (κ + 1)) ≤
-      K * (n : ℝ) ^ (2.9955607657 : ℝ) :=
+      K * (n : ℝ) ^ (2.9955607647813 : ℝ) :=
     timeUpTo_le fun U hU => hK U (by rwa [max_eq_left hu] at hU)
-  have h2 : (n : ℝ) ^ 2 ≤ (n : ℝ) ^ (2.9955607657 : ℝ) := by
-    have := Real.rpow_le_rpow_of_exponent_le hN1 (show (2 : ℝ) ≤ 2.9955607657 by norm_num)
+  have h2 : (n : ℝ) ^ 2 ≤ (n : ℝ) ^ (2.9955607647813 : ℝ) := by
+    have := Real.rpow_le_rpow_of_exponent_le hN1 (show (2 : ℝ) ≤ 2.9955607647813 by norm_num)
     rwa [show (n : ℝ) ^ (2 : ℝ) = (n : ℝ) ^ 2 by rw [← Real.rpow_natCast]; norm_num] at this
   exact ⟨by have := hnn n (c * (n : ℝ) ^ (κ + 1)); positivity, by linarith⟩
 

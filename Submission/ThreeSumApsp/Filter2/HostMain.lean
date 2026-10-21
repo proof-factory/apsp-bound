@@ -142,7 +142,7 @@ theorem exp_Pmax_le (n : ℕ) : (ellOf n + 1) * rOf n ≤ 11 * kOf n + 8 := by
     calc ellOf n * (Nat.sqrt (ellOf n) + 1) ≤ ellOf n * (ellOf n + 1) :=
           Nat.mul_le_mul_left _ (by omega)
       _ ≤ 4 * kOf n + 2 := by rw [hl]; nlinarith
-  have he : 3361758 * kOf n / 10 ^ 8 ≤ kOf n := by
+  have he : 136966 * kOf n / 4074237 ≤ kOf n := by
     rw [Nat.div_le_iff_le_mul_add_pred (by norm_num)]; omega
   have hcK : cKOf n ≤ kOf n + 1 := by
     unfold cKOf sOf
@@ -176,7 +176,7 @@ theorem RR_le_Pmax (n : ℕ) : RR n ≤ PmaxOf n := by
 
 theorem sOf_le_succ (n : ℕ) : sOf n ≤ 2 * n + 1 := by
   unfold sOf
-  have he : 3361758 * kOf n / 10 ^ 8 ≤ kOf n := by
+  have he : 136966 * kOf n / 4074237 ≤ kOf n := by
     rw [Nat.div_le_iff_le_mul_add_pred (by norm_num)]; omega
   exact (Nat.pow_le_pow_right (by norm_num) he).trans (two_pow_kOf_le n)
 

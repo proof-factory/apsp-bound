@@ -12,10 +12,10 @@ public import Submission.ThreeSumApsp.Batch.ONeedPoly
 public import Submission.ThreeSumApsp.Filter2.Final
 
 /-!
-# APSP in time `n^{2.995560766}`
+# APSP in time `n^{2.9955607647814}`
 
 The batched counting oracle solves its task within `oTimeF`; with the bound on `oTimeF`
-(`oTimeF_le`) and the polynomial need (`oNeed_poly`), the filter gives APSP in `n^{2.995560766}`.
+(`oTimeF_le`) and the polynomial need (`oNeed_poly`), the filter gives APSP in `n^{2.9955607647814}`.
 -/
 
 @[expose] public section
@@ -70,7 +70,7 @@ theorem oracle_solves : SolvesN oracleTask oProg pOracle
 
 end Light.Batch
 
-/-- **APSP is solved in time `O(n^{2.995560766})`.** -/
-theorem apsp_2995560766 : EndStatement.APSP.SolvedInTime (2.995560766 : ℚ) :=
-  Light.Filter2.apsp_2995560766_of_oracle Light.Batch.oracle_solves Light.Batch.oNeed_poly
+/-- **APSP is solved in time `O(n^{2.9955607647814})`.** -/
+theorem apsp_29955607647814 : EndStatement.APSP.SolvedInTime (2.9955607647814 : ℚ) :=
+  Light.Filter2.apsp_29955607647814_of_oracle Light.Batch.oracle_solves Light.Batch.oNeed_poly
     fun c κ => Light.Batch.oTimeF_le 300000000 c κ

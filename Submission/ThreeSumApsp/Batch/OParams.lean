@@ -15,7 +15,7 @@ public import Submission.ThreeSumApsp.Programs.Sec3.Theorem17.Parameters.Sizes
 
 For `n` vertices, the block size `s` and the modulus `p ≥ 1`:
 
-* `m = ⌈log₄ (4 s p)⌉ ≥ 1`, `D = 4^m ≥ 4 s p`, `L = 20 m`, `t = ⌈θ m⌉` with `θ = 5656907/50000000`;
+* `m = ⌈log₄ (4 s p)⌉ ≥ 1`, `D = 4^m ≥ 4 s p`, `L = 20 m`, `t = ⌈θ m⌉` with `θ = 155816/1377219`;
 * `N₀ = 3^{L-m}`, `K₀ = ⌊√binom(L, m)⌋`, `KK = K₀²` (the products of a batch);
 * `k = ⌊√(p-1)⌋ + 1` (so `k² ≥ p`, `k ≤ p`), the `n k` digit rows of a product;
 * `nb = ⌈n k / N₀⌉ + 1` blocks of `N₀` rows per product, `NP = nb N₀` rows, and the virtual size
@@ -35,8 +35,8 @@ open ThreeSumApsp Light.Sec4
 def oM (s p : ℕ) : ℕ := Nat.clog 4 (4 * s * p)
 /-- `L = 20 m`. -/
 def oL (s p : ℕ) : ℕ := 20 * oM s p
-/-- `t = ⌈θ m⌉`, `θ = 5656907/50000000`. -/
-def oT (s p : ℕ) : ℕ := (5656907 * oM s p + 50000000 - 1) / 50000000
+/-- `t = ⌈θ m⌉`, `θ = 155816/1377219`. -/
+def oT (s p : ℕ) : ℕ := (155816 * oM s p + 1377219 - 1) / 1377219
 /-- `D = 4^m`. -/
 def oD (s p : ℕ) : ℕ := 4 ^ oM s p
 /-- `N₀ = 3^{L-m}`. -/

@@ -126,7 +126,7 @@ theorem tPrelude_le (n U : ℕ) :
   have hs : sOf n ≤ 2 * n + 1 := sOf_le_succ n
   have hlogs : Nat.log 2 (sOf n) ≤ sOf n := Nat.log_le_self 2 _
   have hcK : cKOf n ≤ sOf n := Nat.size_le.2 Nat.lt_two_pow_self
-  have he : 3361758 * kOf n / 10 ^ 8 ≤ kOf n := by
+  have he : 136966 * kOf n / 4074237 ≤ kOf n := by
     rw [Nat.div_le_iff_le_mul_add_pred (by norm_num)]; omega
   have hB : BOf U ≤ Nat.log 2 (3 * U) + 1 := by
     unfold BOf

@@ -39,8 +39,8 @@ theorem param_words {n U : ℕ} (hn : 1 ≤ n) :
     2 * n + 2 ≤ filterWord n U ∧ 3 * kOf n + 4 ≤ filterWord n U ∧
     RR n + ellOf n + 1 ≤ filterWord n U ∧ 3 * ellOf n + 4 ≤ filterWord n U ∧
     bOf n + 2 + 1 ≤ filterWord n U ∧ 3 * kOf n + dOf n + 1 ≤ filterWord n U ∧
-    3361758 * kOf n + 10 ^ 8 + 1 ≤ filterWord n U ∧
-    sOf n + 3361758 * kOf n / 10 ^ 8 + 1 ≤ filterWord n U ∧
+    136966 * kOf n + 4074237 + 1 ≤ filterWord n U ∧
+    sOf n + 136966 * kOf n / 4074237 + 1 ≤ filterWord n U ∧
     n + sOf n - 1 + sOf n + 1 ≤ filterWord n U ∧ 2 * sOf n + 2 ≤ filterWord n U ∧
     cKOf n + bOf n + ellOf n + 1 ≤ filterWord n U ∧ 2 * (3 * U) + 2 ≤ filterWord n U ∧
     BOf U - 1 + ellOf n + 1 ≤ filterWord n U ∧ rOf n + roundsOf n + 1 ≤ filterWord n U := by
@@ -58,7 +58,7 @@ theorem param_words {n U : ℕ} (hn : 1 ≤ n) :
   have hcK : cKOf n ≤ sOf n := Nat.size_le.2 Nat.lt_two_pow_self
   have hB : BOf U ≤ 3 * U := Nat.size_le.2 Nat.lt_two_pow_self
   have hd : dOf n ≤ bOf n := Nat.div_le_self _ _
-  have he : 3361758 * kOf n / 10 ^ 8 ≤ kOf n := by
+  have he : 136966 * kOf n / 4074237 ≤ kOf n := by
     rw [Nat.div_le_iff_le_mul_add_pred (by norm_num)]; omega
   have hr : rOf n ≤ cKOf n + bOf n + 1 := by
     unfold rOf; have := Nat.div_le_self (cKOf n + bOf n) (ellOf n); omega
@@ -80,7 +80,7 @@ def paramsStmt (pLog pSqrt pPow pDiv : ℕ) : Stmt :=
   .call pSqrt [v 8] 10 ;; .set 10 (v 8 *' (v 10 +' k 1)) ;;
   .call pDiv [v 10, k 2] 11 ;;
   .call pDiv [k 3 *' v 7, v 11] 12 ;; .set 12 (v 12 +' k 1) ;;
-  .call pDiv [k 3361758 *' v 7, k 100000000] 13 ;; .call pPow [v 13] 13 ;;
+  .call pDiv [k 136966 *' v 7, k 4074237] 13 ;; .call pPow [v 13] 13 ;;
   .call pDiv [v 0 +' v 13 -' k 1, v 13] 14 ;;
   .call pLog [v 13] 15 ;; .set 15 (v 15 +' k 1) ;;
   .call pDiv [v 15 +' v 10, v 8] 16 ;; .set 16 (v 16 +' k 1) ;;
@@ -104,7 +104,7 @@ def topFrame (x : AEInst) (fr : ℕ) : List ℤ :=
 /-- The time of the parameters. -/
 def tParams (n U : ℕ) : ℕ :=
   log2Time n + sqrtTime (kOf n) + tPow2 (ellOf n) + sqrtTime (ellOf n) + tDiv (bOf n) 2 +
-    tDiv (3 * kOf n) (dOf n) + tDiv (3361758 * kOf n) (10 ^ 8) + tPow2 (3361758 * kOf n / 10 ^ 8) +
+    tDiv (3 * kOf n) (dOf n) + tDiv (136966 * kOf n) (4074237) + tPow2 (136966 * kOf n / 4074237) +
     tDiv (n + sOf n - 1) (sOf n) + log2Time (sOf n) + tDiv (cKOf n + bOf n) (ellOf n) +
     log2Time (3 * U) + tDiv (BOf U - 1) (ellOf n) + 400
 
@@ -167,9 +167,9 @@ theorem params_spec {P : Program} {d : ℕ} {pLog pSqrt pPow pDiv : ℕ}
     rw [hrq]; unfold roundsOf; push_cast; ring
   light_set (roundsOf x.n : ℤ) using hro
   -- s
-  light_call (div_meets (d := d + 1) HP.div (a := 3361758 * kOf x.n) (b := 100000000)
+  light_call (div_meets (d := d + 1) HP.div (a := 136966 * kOf x.n) (b := 4074237)
     (by norm_num) (le_trans (by exact_mod_cast w7) hword)) with _ _ ⟨rfl, rfl⟩
-  light_call (pow2_meets (d := d + 1) HP.pow (e := 3361758 * kOf x.n / 100000000)
+  light_call (pow2_meets (d := d + 1) HP.pow (e := 136966 * kOf x.n / 4074237)
     (le_trans (by exact_mod_cast w8) hword)) with rs _ ⟨hrs, rfl⟩
   obtain rfl : rs = (sOf x.n : ℤ) := by rw [hrs]; rfl
   -- m

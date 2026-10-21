@@ -11,12 +11,12 @@ public import Submission.ThreeSumApsp.Pruned.Costs
 public import Mathlib.Analysis.SpecialFunctions.Log.Deriv
 
 /-!
-# Refined numbers for `c = 20`, `θ = 5656907/50000000`
+# Refined numbers for `c = 20`, `θ = 155816/1377219`
 
 The logarithms are proved from forty terms of the positive atanh series, with
 Mathlib's geometric remainder bound. Python selected the rational endpoints;
 it supplies no assumptions to Lean. The public bounds are
-`Γ > 0.06602549498`, `q < 0.43397449436`, and `19 ln 3 / ln 4 < 15.057143757`.
+`Γ > 0.0660254968003`, `q < 0.4339745031995`, and `19 ln 3 / ln 4 < 15.057143756851`.
 The coarser, unchanged `κ < 2.9` certificate retains ample slack.
 
 This module refines the certificate by Hrishik Sai Bojnal (fringewidth), built
@@ -57,55 +57,55 @@ private theorem fineLogThreeHalf :
   constructor <;> linarith [h.1, h.2]
 
 private theorem fineLogCompTwice :
-    (573081133314703071200848 / 10^24 : ℝ) < Real.log (44343093 / 25000000 : ℝ) ∧
-    Real.log (44343093 / 25000000 : ℝ) < (573081133314703071200849 / 10^24 : ℝ) := by
-  have h := refinedAtanhLogBounds (19343093 / 69343093 : ℝ) (by norm_num) (by norm_num) 40
+    (573081130066520453705494 / 10^24 : ℝ) < Real.log (2442806 / 1377219 : ℝ) ∧
+    Real.log (2442806 / 1377219 : ℝ) < (573081130066520453705495 / 10^24 : ℝ) := by
+  have h := refinedAtanhLogBounds (1065587 / 3820025 : ℝ) (by norm_num) (by norm_num) 40
   norm_num [Finset.sum_range_succ] at h ⊢
   constructor <;> linarith [h.1, h.2]
 
 private theorem fineLogNearOne :
-    (5936980151365743127724 / 10^24 : ℝ) < Real.log (955656907 / 950000000 : ℝ) ∧
-    Real.log (955656907 / 950000000 : ℝ) < (5936980151365743127725 / 10^24 : ℝ) := by
-  have h := refinedAtanhLogBounds (5656907 / 1905656907 : ℝ) (by norm_num) (by norm_num) 40
+    (5936980302083498201512 / 10^24 : ℝ) < Real.log (26322977 / 26167161 : ℝ) ∧
+    Real.log (26322977 / 26167161 : ℝ) < (5936980302083498201513 / 10^24 : ℝ) := by
+  have h := refinedAtanhLogBounds (77908 / 26245069 : ℝ) (by norm_num) (by norm_num) 40
   norm_num [Finset.sum_range_succ] at h ⊢
   constructor <;> linarith [h.1, h.2]
 
 private theorem fineLogTheta16 :
-    (593442993228432596191592 / 10^24 : ℝ) < Real.log (5656907 / 3125000 : ℝ) ∧
-    Real.log (5656907 / 3125000 : ℝ) < (593442993228432596191593 / 10^24 : ℝ) := by
-  have h := refinedAtanhLogBounds (2531907 / 8781907 : ℝ) (by norm_num) (by norm_num) 40
+    (593443018690131333854015 / 10^24 : ℝ) < Real.log (2493056 / 1377219 : ℝ) ∧
+    Real.log (2493056 / 1377219 : ℝ) < (593443018690131333854016 / 10^24 : ℝ) := by
+  have h := refinedAtanhLogBounds (1115837 / 3870275 : ℝ) (by norm_num) (by norm_num) 40
   norm_num [Finset.sum_range_succ] at h ⊢
   constructor <;> linarith [h.1, h.2]
 
 private theorem fineLogHighOver16 :
-    (177787237078024965467822 / 10^24 : ℝ) < Real.log (955656907 / 800000000 : ℝ) ∧
-    Real.log (955656907 / 800000000 : ℝ) < (177787237078024965467823 / 10^24 : ℝ) := by
-  have h := refinedAtanhLogBounds (155656907 / 1755656907 : ℝ) (by norm_num) (by norm_num) 40
+    (177787237228742720541611 / 10^24 : ℝ) < Real.log (26322977 / 22035504 : ℝ) ∧
+    Real.log (26322977 / 22035504 : ℝ) < (177787237228742720541612 / 10^24 : ℝ) := by
+  have h := refinedAtanhLogBounds (4287473 / 48358481 : ℝ) (by norm_num) (by norm_num) 40
   norm_num [Finset.sum_range_succ] at h ⊢
   constructor <;> linarith [h.1, h.2]
 
 private theorem refinedLogSixteen : Real.log 16 = 4 * Real.log 2 := by
   convert Real.log_pow (2 : ℝ) 4 using 1 <;> norm_num
 
-private lemma logB_a : Real.log (44343093 / 50000000 : ℝ) ∈
-    Set.Icc (-12006604724524223822 / 10^20 : ℝ) (-12006604724524223821 / 10^20 : ℝ) := by
+private lemma logB_a : Real.log (1221403 / 1377219 : ℝ) ∈
+    Set.Icc (-12006605049342485572 / 10^20 : ℝ) (-12006605049342485571 / 10^20 : ℝ) := by
   have hr := Real.log_mul (by norm_num : (2 : ℝ) ≠ 0)
-    (by norm_num : (44343093 / 50000000 : ℝ) ≠ 0)
+    (by norm_num : (1221403 / 1377219 : ℝ) ≠ 0)
   norm_num at hr
   have h1 := fineLogCompTwice
   have h2 := fineLogTwo
   constructor <;> linarith [h1.1, h1.2, h2.1, h2.2]
 
-private lemma logB_b : Real.log (955656907 / 950000000 : ℝ) ∈
-    Set.Icc (593698015136574312 / 10^20 : ℝ) (593698015136574313 / 10^20 : ℝ) := by
+private lemma logB_b : Real.log (26322977 / 26167161 : ℝ) ∈
+    Set.Icc (593698030208349820 / 10^20 : ℝ) (593698030208349821 / 10^20 : ℝ) := by
   have h1 := fineLogNearOne
   have h2 := fineLogTwo
   constructor <;> linarith [h1.1, h1.2, h2.1, h2.2]
 
-private lemma logB_c : Real.log (955656907 / 50000000 : ℝ) ∈
-    Set.Icc (295037595931780620313 / 10^20 : ℝ) (295037595931780620314 / 10^20 : ℝ) := by
+private lemma logB_c : Real.log (26322977 / 1377219 : ℝ) ∈
+    Set.Icc (295037595946852395821 / 10^20 : ℝ) (295037595946852395822 / 10^20 : ℝ) := by
   have hr := Real.log_mul (by norm_num : (16 : ℝ) ≠ 0)
-    (by norm_num : (955656907 / 800000000 : ℝ) ≠ 0)
+    (by norm_num : (26322977 / 22035504 : ℝ) ≠ 0)
   rw [refinedLogSixteen] at hr
   norm_num at hr
   have h1 := fineLogHighOver16
@@ -121,10 +121,10 @@ private lemma logB_3 : Real.log (3 : ℝ) ∈
   have h2 := fineLogTwo
   constructor <;> linarith [h1.1, h1.2, h2.1, h2.2]
 
-private lemma logB_theta : Real.log (5656907 / 50000000 : ℝ) ∈
-    Set.Icc (-217914572901134864148 / 10^20 : ℝ) (-217914572901134864147 / 10^20 : ℝ) := by
+private lemma logB_theta : Real.log (155816 / 1377219 : ℝ) ∈
+    Set.Icc (-217914570354964990382 / 10^20 : ℝ) (-217914570354964990381 / 10^20 : ℝ) := by
   have hr := Real.log_mul (by norm_num : (16 : ℝ) ≠ 0)
-    (by norm_num : (5656907 / 50000000 : ℝ) ≠ 0)
+    (by norm_num : (155816 / 1377219 : ℝ) ≠ 0)
   rw [refinedLogSixteen] at hr
   norm_num at hr
   have h1 := fineLogTheta16
@@ -151,21 +151,21 @@ private lemma logB_20 : Real.log 20 ∈ Set.Icc 2.99573226 2.99573228 :=
 
 /-- Cancellation of the large entropy terms, exactly at the new rational point. -/
 private lemma GammaOf_B_eq :
-    GammaOf 20 (5656907 / 50000000) * Real.log 4
-      = 44343093 / 50000000 * Real.log (44343093 / 50000000)
-        + 19 * Real.log (955656907 / 950000000)
-        + 5656907 / 50000000 * Real.log (955656907 / 50000000)
-        - 5656907 / 50000000 * Real.log 9 := by
+    GammaOf 20 (155816 / 1377219) * Real.log 4
+      = 1221403 / 1377219 * Real.log (1221403 / 1377219)
+        + 19 * Real.log (26322977 / 26167161)
+        + 155816 / 1377219 * Real.log (26322977 / 1377219)
+        - 155816 / 1377219 * Real.log 9 := by
   rw [GammaOf_mul_log_four (by norm_num) (by norm_num) (by norm_num)]
-  have h1 : (1 : ℝ) - 5656907 / 50000000 = 44343093 / 50000000 := by norm_num
-  have h2 : (20 : ℝ) - 1 + 5656907 / 50000000 = 955656907 / 50000000 := by norm_num
+  have h1 : (1 : ℝ) - 155816 / 1377219 = 1221403 / 1377219 := by norm_num
+  have h2 : (20 : ℝ) - 1 + 155816 / 1377219 = 26322977 / 1377219 := by norm_num
   have h3 : (20 : ℝ) - 1 = 19 := by norm_num
-  rw [h1, h2, h3, show (955656907 / 950000000 : ℝ) = (955656907 / 50000000) / 19 by
-    norm_num, Real.log_div (x := 955656907 / 50000000) (y := 19) (by norm_num) (by norm_num)]
+  rw [h1, h2, h3, show (26322977 / 26167161 : ℝ) = (26322977 / 1377219) / 19 by
+    norm_num, Real.log_div (x := 26322977 / 1377219) (y := 19) (by norm_num) (by norm_num)]
   ring
 
 /-- The certified lower bound used for preprocessing boxes. -/
-theorem GammaOf_B : (0.06602549498 : ℝ) < GammaOf 20 (5656907 / 50000000) := by
+theorem GammaOf_B : (0.0660254968003 : ℝ) < GammaOf 20 (155816 / 1377219) := by
   refine lt_of_mul_lt_mul_right ?_ log_four_pos.le
   rw [GammaOf_B_eq]
   have h1 := logB_a; have h2 := logB_b; have h3 := logB_c; have h4 := logB_9
@@ -174,7 +174,7 @@ theorem GammaOf_B : (0.06602549498 : ℝ) < GammaOf 20 (5656907 / 50000000) := b
   linarith
 
 /-- A coarse upper bound required by the unchanged tensor geometry. -/
-theorem GammaOf_B_lt : GammaOf 20 (5656907 / 50000000) < (0.0661 : ℝ) := by
+theorem GammaOf_B_lt : GammaOf 20 (155816 / 1377219) < (0.0661 : ℝ) := by
   refine lt_of_mul_lt_mul_right ?_ log_four_pos.le
   rw [GammaOf_B_eq]
   have h1 := logB_a; have h2 := logB_b; have h3 := logB_c; have h4 := logB_9
@@ -182,20 +182,20 @@ theorem GammaOf_B_lt : GammaOf 20 (5656907 / 50000000) < (0.0661 : ℝ) := by
   simp only [Set.mem_Icc] at *
   linarith
 
-theorem GammaOf_B_pos : 0 < GammaOf 20 (5656907 / 50000000) :=
+theorem GammaOf_B_pos : 0 < GammaOf 20 (155816 / 1377219) :=
   lt_trans (by norm_num) GammaOf_B
 
 /-- The certified upper bound used for queries. -/
-theorem qOf_B : qOf (5656907 / 50000000) < (0.43397449436 : ℝ) := by
+theorem qOf_B : qOf (155816 / 1377219) < (0.4339745031995 : ℝ) := by
   unfold qOf entropy
   rw [div_lt_iff₀ log_four_pos]
   have h1 := logB_theta; have h2 := logB_a; have h3 := logB_9; have h4 := logB_4
-  norm_num only [show (1 : ℝ) - 5656907 / 50000000 = 44343093 / 50000000 by norm_num]
+  norm_num only [show (1 : ℝ) - 155816 / 1377219 = 1221403 / 1377219 by norm_num]
   simp only [Set.mem_Icc] at *
   linarith
 
 /-- The certified upper bound used for pruned encodings. -/
-theorem bExp_B : 19 * Real.log 3 / Real.log 4 < (15.057143757 : ℝ) := by
+theorem bExp_B : 19 * Real.log 3 / Real.log 4 < (15.057143756851 : ℝ) := by
   rw [div_lt_iff₀ log_four_pos]
   have h3 := logB_3; have h5 := logB_4
   simp only [Set.mem_Icc] at *

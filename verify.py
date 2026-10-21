@@ -17,7 +17,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent
 END_STATEMENT_SHA256 = "4291e3f05781cea42f9d672ff73ceac1f6d1a0c3021038e94372fa8f7e1ad987"
-PRIOR_VERIFIED_BOUND = Fraction("2.99556085")
+PRIOR_VERIFIED_BOUND = Fraction("2.995560766")
 
 
 def run(args: list[str], *, capture: bool = False) -> str:
@@ -75,7 +75,7 @@ def main() -> None:
         raise SystemExit("The manifest must target APSP")
     bound = Fraction(manifest["bound"])
     if not 0 < bound < PRIOR_VERIFIED_BOUND:
-        raise SystemExit("The proposed bound does not improve 2.99556085")
+        raise SystemExit("The proposed bound does not improve 2.995560766")
 
     check_dependency_sources()
     before = source_snapshot()

@@ -73,11 +73,11 @@ theorem sOf_pos (n : ℕ) : 1 ≤ sOf n := Nat.one_le_two_pow
 
 theorem sOf_le {n : ℕ} (hn : 1 ≤ n) : sOf n ≤ n := by
   have hk : 1 ≤ kOf n := Nat.size_pos.2 hn
-  have he : 3361758 * kOf n / 10 ^ 8 < kOf n := by
+  have he : 136966 * kOf n / 4074237 < kOf n := by
     rw [Nat.div_lt_iff_lt_mul (by norm_num)]
     omega
   unfold sOf
-  calc 2 ^ (3361758 * kOf n / 10 ^ 8) ≤ 2 ^ (kOf n - 1) := Nat.pow_le_pow_right (by norm_num) (by omega)
+  calc 2 ^ (136966 * kOf n / 4074237) ≤ 2 ^ (kOf n - 1) := Nat.pow_le_pow_right (by norm_num) (by omega)
     _ ≤ n := by
       have := Nat.lt_size.1 (show kOf n - 1 < Nat.size n from by unfold kOf at hk ⊢; omega)
       exact this
